@@ -19,12 +19,18 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> GetBooks()
     {
         var books = await _context.Books
-            .Select(b => new
-            {
+            .Include(b => b.Authors)
+            .Select(b => new {
                 b.BookId,
                 b.Title,
                 b.ISBN,
-                b.PublicationYear
+                b.PublicationYear,
+                Authors = b.Authors.Select(a => new {
+                    a.AuthorId,
+                    a.FirstName,
+                    a.LastName,
+                    a.Biography
+                }).ToList()
             })
             .ToListAsync();
 

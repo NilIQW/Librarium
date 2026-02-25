@@ -11,3 +11,5 @@
 /Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.pdb
 /Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/ref/Librarium.Data.dll
 /Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.sourcelink.json
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/bin/Debug/net10.0/Librarium.Data.runtimeconfig.json
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.genruntimeconfig.cache

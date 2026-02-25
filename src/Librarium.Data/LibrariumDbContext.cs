@@ -13,6 +13,7 @@ public class LibrariumDbContext : DbContext
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Member> Members => Set<Member>();
     public DbSet<Loan> Loans => Set<Loan>();
+    public DbSet<Author> Authors => Set<Author>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,6 +26,11 @@ public class LibrariumDbContext : DbContext
             .Property(b => b.ISBN)
             .IsRequired()
             .HasMaxLength(20);
+        
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Authors)
+            .WithMany(a => a.Books)
+            .UsingEntity(j => j.ToTable("BookAuthors"));
 
         modelBuilder.Entity<Member>()
             .Property(m => m.Email)
