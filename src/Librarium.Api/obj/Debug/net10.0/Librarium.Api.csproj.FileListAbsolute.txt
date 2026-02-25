@@ -161,3 +161,4 @@
 /Users/niltwi/Documents/Librarium/src/Librarium.Api/obj/Debug/net10.0/Librarium.Api.pdb
 /Users/niltwi/Documents/Librarium/src/Librarium.Api/obj/Debug/net10.0/Librarium.Api.genruntimeconfig.cache
 /Users/niltwi/Documents/Librarium/src/Librarium.Api/obj/Debug/net10.0/ref/Librarium.Api.dll
+/Users/niltwi/Documents/Librarium/src/Librarium.Api/obj/Debug/net10.0/Librarium.Api.sourcelink.json

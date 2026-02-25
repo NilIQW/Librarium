@@ -6,9 +6,9 @@ services:
     container_name: librarium-sql
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=abcde12345
+      - SA_PASSWORD=abcde123!@
     ports:
-      - "1433:1433"
+      - "14330:1433"
     volumes:
       - sql_data:/var/opt/mssql
     restart: unless-stopped
