@@ -33,9 +33,13 @@ public class LibrariumDbContext : DbContext
             .UsingEntity(j => j.ToTable("BookAuthors"));
 
         modelBuilder.Entity<Member>()
-            .Property(m => m.Email)
-            .IsRequired()
-            .HasMaxLength(200);
+            .HasIndex(m => m.Email)
+            .IsUnique(); 
+
+        modelBuilder.Entity<Member>()
+            .Property(m => m.PhoneNumber)
+            .HasMaxLength(20)
+            .IsRequired();
 
         modelBuilder.Entity<Loan>()
             .HasOne(l => l.Book)
