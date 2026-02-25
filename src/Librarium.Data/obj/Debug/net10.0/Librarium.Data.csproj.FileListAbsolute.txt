@@ -1,0 +1,12 @@
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/bin/Debug/net10.0/Librarium.Data.deps.json
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/bin/Debug/net10.0/Librarium.Data.dll
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/bin/Debug/net10.0/Librarium.Data.pdb
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.csproj.AssemblyReference.cache
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.AssemblyInfoInputs.cache
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.AssemblyInfo.cs
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.csproj.CoreCompileInputs.cache
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.dll
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/refint/Librarium.Data.dll
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/Librarium.Data.pdb
+/Users/niltwi/Documents/Librarium/src/Librarium.Data/obj/Debug/net10.0/ref/Librarium.Data.dll

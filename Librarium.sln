@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librarium.Api", "src\Librarium.Api\Librarium.Api.csproj", "{3E5D24BC-DE9B-4B62-BD73-6D5DAFF435FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librarium.Data", "src\Librarium.Data\Librarium.Data.csproj", "{CBDF7045-C0BD-472F-9B06-9748F70D2BD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E5D24BC-DE9B-4B62-BD73-6D5DAFF435FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5D24BC-DE9B-4B62-BD73-6D5DAFF435FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5D24BC-DE9B-4B62-BD73-6D5DAFF435FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5D24BC-DE9B-4B62-BD73-6D5DAFF435FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDF7045-C0BD-472F-9B06-9748F70D2BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDF7045-C0BD-472F-9B06-9748F70D2BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDF7045-C0BD-472F-9B06-9748F70D2BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDF7045-C0BD-472F-9B06-9748F70D2BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
