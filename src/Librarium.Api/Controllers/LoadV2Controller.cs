@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Librarium.Api.Controllers;
 
 [ApiController]
-[Route("api/loans")]
-public class LoansController : ControllerBase
+[Route("api/v2/loans")]
+public class LoansV2Controller : ControllerBase
 {
     private readonly LibrariumDbContext _context;
 
-    public LoansController(LibrariumDbContext context)
+    public LoansV2Controller(LibrariumDbContext context)
     {
         _context = context;
     }
@@ -24,7 +24,8 @@ public class LoansController : ControllerBase
         {
             BookId = request.BookId,
             MemberId = request.MemberId,
-            LoanDate = DateTime.UtcNow
+            LoanDate = DateTime.UtcNow,
+            Status = LoanStatus.Active
         };
 
         _context.Loans.Add(loan);
@@ -39,17 +40,16 @@ public class LoansController : ControllerBase
         var loans = await _context.Loans
             .Where(l => l.MemberId == memberId)
             .Include(l => l.Book)
-            .Select(l => new LoanV1Dto
+            .Select(l => new LoanV2Dto
             {
                 LoanId = l.LoanId,
                 BookTitle = l.Book.Title,
                 LoanDate = l.LoanDate,
-                ReturnDate = l.ReturnDate
+                ReturnDate = l.ReturnDate,
+                Status = l.Status.ToString()
             })
             .ToListAsync();
 
         return Ok(loans);
     }
 }
-
-public record CreateLoanRequest(int BookId, int MemberId);

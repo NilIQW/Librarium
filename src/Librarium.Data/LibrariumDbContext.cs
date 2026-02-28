@@ -50,5 +50,11 @@ public class LibrariumDbContext : DbContext
             .HasOne(l => l.Member)
             .WithMany(m => m.Loans)
             .HasForeignKey(l => l.MemberId);
+        
+        modelBuilder.Entity<Loan>()
+            .Property(l => l.Status)
+            .HasConversion<int>()
+            .IsRequired()
+            .HasDefaultValue(LoanStatus.Active);
     }
 }
