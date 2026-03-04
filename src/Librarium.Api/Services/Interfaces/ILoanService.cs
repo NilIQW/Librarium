@@ -1,7 +1,7 @@
 
 using Librarium.Api.Dtos;
 
-namespace Librarium.Api.Services;
+namespace Librarium.Api.Services.Interfaces;
 
 public interface ILoanService
 {

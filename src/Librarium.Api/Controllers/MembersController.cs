@@ -1,6 +1,7 @@
-using Librarium.Data;
+using Librarium.Api.Dtos;
+using Librarium.Api.Services;
+using Librarium.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Librarium.Api.Controllers;
 
@@ -8,17 +9,30 @@ namespace Librarium.Api.Controllers;
 [Route("api/members")]
 public class MembersController : ControllerBase
 {
-    private readonly LibrariumDbContext _context;
+    private readonly IMemberService _service;
 
-    public MembersController(LibrariumDbContext context)
+    public MembersController(IMemberService service)
     {
-        _context = context;
+        _service = service;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateMemberRequest request)
+    {
+        var result = await _service.CreateAsync(request);
+        return Created("", result);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetMembers()
+    public async Task<IActionResult> GetAll()
     {
-        var members = await _context.Members.ToListAsync();
-        return Ok(members);
+        return Ok(await _service.GetAllAsync());
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var member = await _service.GetByIdAsync(id);
+        return member == null ? NotFound() : Ok(member);
     }
 }

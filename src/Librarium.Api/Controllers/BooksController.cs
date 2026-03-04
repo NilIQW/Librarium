@@ -1,6 +1,7 @@
+using Librarium.Api.Dtos;
+using Librarium.Api.Services;
+using Librarium.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Librarium.Data;
 
 namespace Librarium.Api.Controllers;
 
@@ -8,32 +9,43 @@ namespace Librarium.Api.Controllers;
 [Route("api/books")]
 public class BooksController : ControllerBase
 {
-    private readonly LibrariumDbContext _context;
+    private readonly IBookService _service;
 
-    public BooksController(LibrariumDbContext context)
+    public BooksController(IBookService service)
     {
-        _context = context;
+        _service = service;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateBookRequest request)
+    {
+        return Created("", await _service.CreateAsync(request));
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetBooks()
+    public async Task<IActionResult> GetAll()
     {
-        var books = await _context.Books
-            .Include(b => b.Authors)
-            .Select(b => new {
-                b.BookId,
-                b.Title,
-                b.ISBN,
-                b.PublicationYear,
-                Authors = b.Authors.Select(a => new {
-                    a.AuthorId,
-                    a.FirstName,
-                    a.LastName,
-                    a.Biography
-                }).ToList()
-            })
-            .ToListAsync();
+        return Ok(await _service.GetAllAsync());
+    }
 
-        return Ok(books);
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var book = await _service.GetByIdAsync(id);
+        return book == null ? NotFound() : Ok(book);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UpdateBookRequest request)
+    {
+        var book = await _service.UpdateAsync(id, request);
+        return book == null ? NotFound() : Ok(book);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var success = await _service.DeleteAsync(id);
+        return success ? NoContent() : NotFound();
     }
 }

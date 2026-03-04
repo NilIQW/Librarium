@@ -1,5 +1,6 @@
 using Librarium.Api.Dtos;
 using Librarium.Api.Services;
+using Librarium.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Librarium.Api.Controllers;

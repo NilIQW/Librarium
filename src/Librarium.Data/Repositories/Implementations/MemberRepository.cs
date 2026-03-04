@@ -13,8 +13,20 @@ public class MemberRepository : IMemberRepository
         _context = context;
     }
 
+    public async Task<Member> CreateAsync(Member member)
+    {
+        _context.Members.Add(member);
+        await _context.SaveChangesAsync();
+        return member;
+    }
+
     public async Task<List<Member>> GetAllAsync()
     {
         return await _context.Members.ToListAsync();
+    }
+
+    public async Task<Member?> GetByIdAsync(int id)
+    {
+        return await _context.Members.FindAsync(id);
     }
 }

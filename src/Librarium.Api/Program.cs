@@ -1,4 +1,6 @@
 using Librarium.Api.Services;
+using Librarium.Api.Services.Implementations;
+using Librarium.Api.Services.Interfaces;
 using Librarium.Data;
 using Librarium.Data.Repositories.Implementations;
 using Librarium.Data.Repositories.Interfaces;
@@ -12,9 +14,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
 
 builder.Services.AddDbContext<LibrariumDbContext>(options =>

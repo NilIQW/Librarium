@@ -1,8 +1,9 @@
 using Librarium.Api.Dtos;
+using Librarium.Api.Services.Interfaces;
 using Librarium.Data.Entities;
 using Librarium.Data.Repositories.Interfaces;
 
-namespace Librarium.Api.Services;
+namespace Librarium.Api.Services.Implementations;
 
 public class LoanService : ILoanService
 {
