@@ -1,4 +1,4 @@
-namespace Librarium.Data.Dtos;
+namespace Librarium.Api.Dtos;
 
 public class LoanV1Dto
 {

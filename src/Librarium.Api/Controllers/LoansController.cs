@@ -1,8 +1,6 @@
-using Librarium.Data;
-using Librarium.Data.Dtos;
-using Librarium.Data.Entities;
+using Librarium.Api.Dtos;
+using Librarium.Api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Librarium.Api.Controllers;
 
@@ -10,46 +8,24 @@ namespace Librarium.Api.Controllers;
 [Route("api/loans")]
 public class LoansController : ControllerBase
 {
-    private readonly LibrariumDbContext _context;
+    private readonly ILoanService _loanService;
 
-    public LoansController(LibrariumDbContext context)
+    public LoansController(ILoanService loanService)
     {
-        _context = context;
+        _loanService = loanService;
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateLoan(CreateLoanRequest request)
     {
-        var loan = new Loan
-        {
-            BookId = request.BookId,
-            MemberId = request.MemberId,
-            LoanDate = DateTime.UtcNow
-        };
-
-        _context.Loans.Add(loan);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetLoans), new { memberId = request.MemberId }, loan);
+        var result = await _loanService.CreateLoanV1Async(request);
+        return Created("", result);
     }
 
     [HttpGet("{memberId}")]
     public async Task<IActionResult> GetLoans(int memberId)
     {
-        var loans = await _context.Loans
-            .Where(l => l.MemberId == memberId)
-            .Include(l => l.Book)
-            .Select(l => new LoanV1Dto
-            {
-                LoanId = l.LoanId,
-                BookTitle = l.Book.Title,
-                LoanDate = l.LoanDate,
-                ReturnDate = l.ReturnDate
-            })
-            .ToListAsync();
-
-        return Ok(loans);
+        var result = await _loanService.GetLoansV1Async(memberId);
+        return Ok(result);
     }
 }
-
-public record CreateLoanRequest(int BookId, int MemberId);

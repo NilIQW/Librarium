@@ -1,4 +1,7 @@
+using Librarium.Api.Services;
 using Librarium.Data;
+using Librarium.Data.Repositories.Implementations;
+using Librarium.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+
+builder.Services.AddScoped<ILoanService, LoanService>();
 
 builder.Services.AddDbContext<LibrariumDbContext>(options =>
     options.UseSqlServer(
