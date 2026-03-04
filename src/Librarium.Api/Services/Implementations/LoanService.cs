@@ -8,14 +8,19 @@ namespace Librarium.Api.Services.Implementations;
 public class LoanService : ILoanService
 {
     private readonly ILoanRepository _loanRepository;
+    private readonly IBookRepository _bookRepository;
 
-    public LoanService(ILoanRepository loanRepository)
+    public LoanService(ILoanRepository loanRepository, IBookRepository bookRepository)
     {
         _loanRepository = loanRepository;
+        _bookRepository = bookRepository;
     }
+    
 
     public async Task<LoanV1Dto> CreateLoanV1Async(CreateLoanRequest request)
     {
+        var book = await ValidateBookForLoanAsync(request.BookId);
+        
         var loan = new Loan
         {
             BookId = request.BookId,
@@ -28,7 +33,7 @@ public class LoanService : ILoanService
         return new LoanV1Dto
         {
             LoanId = created.LoanId,
-            BookTitle = created.Book?.Title ?? "",
+            BookTitle = book.Title,
             LoanDate = created.LoanDate,
             ReturnDate = created.ReturnDate
         };
@@ -36,6 +41,8 @@ public class LoanService : ILoanService
 
     public async Task<LoanV2Dto> CreateLoanV2Async(CreateLoanRequest request)
     {
+        var book = await ValidateBookForLoanAsync(request.BookId);
+        
         var loan = new Loan
         {
             BookId = request.BookId,
@@ -49,7 +56,7 @@ public class LoanService : ILoanService
         return new LoanV2Dto
         {
             LoanId = created.LoanId,
-            BookTitle = created.Book?.Title ?? "",
+            BookTitle = book.Title,
             LoanDate = created.LoanDate,
             ReturnDate = created.ReturnDate,
             Status = created.Status.ToString()
@@ -81,5 +88,18 @@ public class LoanService : ILoanService
             ReturnDate = l.ReturnDate,
             Status = l.Status.ToString()
         }).ToList();
+    }
+    
+    private async Task<Book> ValidateBookForLoanAsync(int bookId)
+    {
+        var book = await _bookRepository.GetByIdAsync(bookId);
+
+        if (book == null)
+            throw new KeyNotFoundException("Book not found");
+
+        if (book.IsRetired)
+            throw new InvalidOperationException("Cannot create loan for retired book");
+
+        return book;
     }
 }

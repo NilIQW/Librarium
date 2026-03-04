@@ -31,7 +31,10 @@ public class BookService : IBookService
     public async Task<List<BookDto>> GetAllAsync()
     {
         var books = await _repository.GetAllAsync();
-        return books.Select(MapToDto).ToList();
+        return books
+            .Where(b=>!b.IsRetired)
+            .Select(MapToDto)
+            .ToList();
     }
 
     public async Task<BookDto?> GetByIdAsync(int id)

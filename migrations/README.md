@@ -131,3 +131,29 @@
 - Manual or scripted handling of duplicates preserves data integrity
 - Temporary emails are placeholders until real emails are confirmed or corrected
 - Enforcing uniqueness prevents operational issues during login
+
+# V004 — AddBookRetirement Support
+
+## Description
+- Introduced an `IsRetired` flag on the `Books` table to support retiring books from the catalogue without deleting historical loan data.
+
+## Type of Change
+- Additive (non-breaking)
+
+## API Impact
+- No existing endpoints were removed or modified.
+- `GET /api/books` now excludes retired books from its results.
+- Loan endpoints continue to return book information for historical loans, including retired books.
+- Referential integrity is preserved.
+
+## Deployment Notes
+- The migration can be safely applied before redeploying the application because the new column has a default value of `FALSE`.
+- During the window between migration and redeployment, the old application continues to function normally.
+- After redeployment, the service layer enforces the retirement rule and prevents new loans from being created for retired books.
+
+## Decisions and Tradeoffs
+- A developer proposed adding an `IsDeleted` flag and filtering books directly at query level.
+- This approach was rejected because it risks breaking loan responses if navigation properties are filtered globally, potentially resulting in `null` book references.
+- Instead, an explicit `IsRetired` flag was introduced to reflect the correct business meaning.
+- Filtering is applied only in catalogue queries, while historical loan data remains intact.
+- The rule preventing new loans for retired books is enforced in the service layer to ensure business consistency.
