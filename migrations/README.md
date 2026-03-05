@@ -157,3 +157,25 @@
 - Instead, an explicit `IsRetired` flag was introduced to reflect the correct business meaning.
 - Filtering is applied only in catalogue queries, while historical loan data remains intact.
 - The rule preventing new loans for retired books is enforced in the service layer to ensure business consistency.
+
+## V006 — Replace ISBN Column with Correct String Type
+
+**Description**  
+Replaced old invalid integer `ISBN` column with a new string column `IsbnText` to store proper ISBNs with hyphens and leading zeros.
+
+**Type of change**  
+Additive (non-breaking)
+
+**API impact**
+- `GET /api/books` returns `isbn` from the new string column.
+- Previous ISBNs are invalid and appear as `null` in API responses.
+- No endpoints removed or renamed; clients reading ISBN see safe string values.
+
+**Deployment notes**  
+Migration can be applied before redeployment. Old integer column kept temporarily to avoid breaking dependent systems. After deployment, new column used in API and services.
+
+**Decisions and tradeoffs**
+- Cannot recover old truncated ISBNs; new column required.
+- Avoided in-place type conversion to prevent data corruption.
+- Gradual migration allows safe transition for database and clients.
+- Old column can be dropped later once all clients are updated.

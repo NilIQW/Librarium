@@ -23,7 +23,7 @@ public class LibrariumDbContext : DbContext
             .HasMaxLength(200);
 
         modelBuilder.Entity<Book>()
-            .Property(b => b.ISBN)
+            .Property(b => b.IsbnText)
             .IsRequired()
             .HasMaxLength(20);
         

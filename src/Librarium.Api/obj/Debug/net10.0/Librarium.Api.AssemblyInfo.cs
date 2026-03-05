@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Librarium.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc872bda22811b6eb3d1eb9e84a10c5ca7cac4c2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+731c7f6a7d9726ac501e241bdbae9d0ac0857942")]
 [assembly: System.Reflection.AssemblyProductAttribute("Librarium.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Librarium.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

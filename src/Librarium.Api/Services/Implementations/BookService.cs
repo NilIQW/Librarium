@@ -19,7 +19,7 @@ public class BookService : IBookService
         var book = new Book
         {
             Title = request.Title,
-            ISBN = request.ISBN,
+            IsbnText = request.ISBN,
             PublicationYear = request.PublicationYear
         };
 
@@ -49,7 +49,7 @@ public class BookService : IBookService
         if (book == null) return null;
 
         book.Title = request.Title;
-        book.ISBN = request.ISBN;
+        book.IsbnText = request.ISBN;
         book.PublicationYear = request.PublicationYear;
 
         var updated = await _repository.UpdateAsync(book);
@@ -71,7 +71,7 @@ public class BookService : IBookService
         {
             BookId = book.BookId,
             Title = book.Title,
-            ISBN = book.ISBN,
+            ISBN = book.IsbnText,
             PublicationYear = book.PublicationYear,
             Authors = book.Authors.Select(a =>
                 new AuthorDto(a.AuthorId, a.FirstName, a.LastName, a.Biography)
