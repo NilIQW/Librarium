@@ -2,25 +2,31 @@ using Librarium.Api.Dtos;
 using Librarium.Api.Services.Interfaces;
 using Librarium.Data.Entities;
 using Librarium.Data.Repositories.Interfaces;
+using System.Linq;
 
 namespace Librarium.Api.Services.Implementations;
 
 public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
+    private readonly IAuthorRepository _authorRepository;
 
-    public BookService(IBookRepository repository)
+    public BookService(IBookRepository repository, IAuthorRepository authorRepository)
     {
         _repository = repository;
+        _authorRepository = authorRepository;
     }
 
     public async Task<BookDto> CreateAsync(CreateBookRequest request)
     {
+        var authors = await _authorRepository.GetByIdsAsync(request.AuthorIds);
+
         var book = new Book
         {
             Title = request.Title,
             IsbnText = request.ISBN,
-            PublicationYear = request.PublicationYear
+            PublicationYear = request.PublicationYear,
+            Authors = authors
         };
 
         var created = await _repository.CreateAsync(book);
@@ -45,13 +51,15 @@ public class BookService : IBookService
 
     public async Task<BookDto?> UpdateAsync(int id, UpdateBookRequest request)
     {
+        var authors = await _authorRepository.GetByIdsAsync(request.AuthorIds);
+
         var book = await _repository.GetByIdAsync(id);
         if (book == null) return null;
 
         book.Title = request.Title;
         book.IsbnText = request.ISBN;
         book.PublicationYear = request.PublicationYear;
-
+        book.Authors = authors;
         var updated = await _repository.UpdateAsync(book);
         return MapToDto(updated);
     }

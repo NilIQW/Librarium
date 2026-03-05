@@ -1,8 +1,18 @@
 namespace Librarium.Api.Dtos;
 
-public record CreateBookRequest(string Title, string ISBN, int PublicationYear);
+public record CreateBookRequest(
+    string Title,
+    string ISBN,
+    int PublicationYear,
+    List<int> AuthorIds
+);
 
-public record UpdateBookRequest(string Title, string ISBN, int PublicationYear);
+public record UpdateBookRequest(
+    string Title,
+    string ISBN,
+    int PublicationYear,
+    List<int> AuthorIds 
+);
 
 public class BookDto
 {

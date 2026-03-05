@@ -1,5 +1,6 @@
 using Librarium.Data.Entities;
 using Librarium.Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Librarium.Data.Repositories.Implementations;
 
@@ -19,5 +20,12 @@ public class AuthorRepository : IAuthorRepository
         _context.Authors.Add(author);
         await _context.SaveChangesAsync();
         return author;
+    }
+
+    public async Task<List<Author>> GetByIdsAsync(List<int> authorIds)
+    {
+        return await _context.Authors
+            .Where(a => authorIds.Contains(a.AuthorId))
+            .ToListAsync();
     }
 }
