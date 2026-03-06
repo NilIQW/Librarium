@@ -87,12 +87,11 @@
 
 ## Description
 - Alters `PhoneNumber` column to be **required** (non-nullable)
-- Populates existing null phone numbers with default value:
-
+- Populates existing null phone numbers with a temporary empty value ("")
 ## API Impact
 
--GET /api/members now guarantees all members have a PhoneNumber
--Existing clients that ignore this field continue to function
+- GET /api/members now guarantees all members have a PhoneNumber
+- Existing clients that ignore this field continue to function
 
 ## Deployment Notes
 
@@ -164,7 +163,7 @@
 Replaced old invalid integer `ISBN` column with a new string column `IsbnText` to store proper ISBNs with hyphens and leading zeros.
 
 **Type of change**  
-Additive (non-breaking)
+Requires coordination
 
 **API impact**
 - `GET /api/books` returns `isbn` from the new string column.
